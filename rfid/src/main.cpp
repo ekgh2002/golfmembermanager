@@ -1,16 +1,15 @@
 #include <iostream>
 #include "GolfMembershipManager.h"
 #include "MembersEntity.h"
+#include <cstring>
 
 
 int main(void)
 {
 
-    // GolfMembershipManager golfMembershipManager;
+    GolfMembershipManager golfMembershipManager;
 
-    // golfMembershipManager.run();
-
-    MembersEntity membersEntity;
+    golfMembershipManager.run();
 
     return 0; 
 }

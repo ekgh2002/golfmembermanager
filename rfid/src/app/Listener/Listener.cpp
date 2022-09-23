@@ -4,6 +4,7 @@
 Listener::Listener()
 {
    rfid = new CardReader(new SPI(10, 3000000));
+   modeButton = new ManageButton(27, "ModeButton");
    controller = new Controller();
 }
 
@@ -18,6 +19,10 @@ void Listener::checkEvent()
     {
         controller->updateEvent(rfid->getCardNumber());
     }   
+    if (modeButton->checkButton())
+    {
+        controller->updateEvent(modeButton->getButtonData());
+    }
 }
 
 bool Listener::checkRfid()
