@@ -4,8 +4,10 @@
 #include <string>
 #include "MembersEntity.h"
 #include "Memberinfo.h"
+#include <vector>
+#include <iostream>
 
-enum {CARD_READER, CARD_REGISTER, CARD_SCAN_NAME};
+enum {CARD_READER, CARD_REGISTER, SCAN_NAME, SCAN_PHONENUMBER};
 
 class MembersManageService
 {

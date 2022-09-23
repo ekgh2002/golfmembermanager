@@ -14,6 +14,8 @@ private:
     MemberInfo memberInfo;
     FILE *fpDBData;
     
+    
+    
 
 public:
     MembersEntity();
@@ -21,7 +23,7 @@ public:
     void loadMembersInfo();
     void addMemberInfo(MemberInfo member);
     bool delMemberInfo(int *cardNum);
-    void findMemberInfo();
+    
     // void printMemberInfo();
     // void addMemberInfo(MemberInfo member);
     // void delMemberInfo(MemberInfo member);
@@ -32,6 +34,12 @@ public:
     bool findMemberInfo(int *cardNum);
     bool findMemberInfo(std::string name);
     void memoryToDB();
+    void member_reader(int*cardNum);
+    void member_register(int *cardNum);
+    void findMemberInfo_name();
+    void findMemberInfo_PhoneNumber();
+    int idcount;
+
 
 
 };

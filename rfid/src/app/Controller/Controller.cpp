@@ -3,6 +3,7 @@
 Controller::Controller()
 {
     membersManageService = new MembersManageService();
+    membersEntity = new MembersEntity();
 }
 
 Controller::~Controller()
@@ -23,5 +24,6 @@ void Controller::updateEvent(DeviceData data)
     if (data.devName == "ModeButton")
     {
         membersManageService->updateStateEvent(data.devName);
+
     }
 }

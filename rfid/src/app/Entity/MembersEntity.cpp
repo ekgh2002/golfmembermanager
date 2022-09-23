@@ -5,6 +5,7 @@
 MembersEntity::MembersEntity()
 { 
     loadMembersInfo();
+    idcount = 100001;
 }
 
 MembersEntity::~MembersEntity()
@@ -81,29 +82,7 @@ void MembersEntity::printMemberInfo(int *cardNum)
     }
 }
 
-void MembersEntity::findMemberInfo()
-{
-    MemberInfo tempMember2;
-    printf("이름을 입력하세요 : ");
-    scanf("%s", &tempMember2.name);
-    static int not_member_count = 0;
-    for(const auto &member : vecMembersList)
-    {
-        if(strcmp(member.name, tempMember2.name) == 0)
-        {
-            printf("registed memeber\n");
-        }
-        else
-        {
-            not_member_count++;
-        }
-        if(not_member_count >= 100001)
-        {
-            printf("not registered member\n");
-        }
-    }
-     
-}
+
 
 
 
@@ -176,3 +155,82 @@ void MembersEntity::memoryToDB()
     fclose(fpDBData2);
 
 }
+
+void MembersEntity::member_register(int *cardNum)
+{
+    MemberInfo tempMember;
+    tempMember.id = idcount;
+    printf("이름을 입력하세요 : ");
+    scanf("%s", &tempMember.name);
+    printf("\n주소를 입력하세요 : ");
+    scanf("%s", &tempMember.address);
+    printf("\n번호를 입력하세요 : ");
+    scanf("%s", &tempMember.phoneNumber);
+    memcpy(tempMember.cardNum, cardNum, sizeof(tempMember.cardNum));
+    addMemberInfo(tempMember);
+    printf("member registered\n");
+    idcount++;
+}
+
+void MembersEntity::member_reader(int*cardNum)
+{
+    if(findMemberInfo(cardNum))
+    {
+        printf("Registered Member\n");
+        printMemberInfo(cardNum);  
+    }
+    else
+    {
+        printf("Not Registered Member\n");
+    }  
+}
+
+void MembersEntity::findMemberInfo_name()
+{
+    MemberInfo tempMember2;
+    printf("이름을 입력하세요 : ");
+    scanf("%s", &tempMember2.name);
+    static int not_member_count = 0;
+    for(const auto &member : vecMembersList)
+    {
+        if(strcmp(member.name, tempMember2.name) == 0)
+        {
+            printf("registed memeber\n");
+        }
+        else
+        {
+            not_member_count++;
+        }
+        if(not_member_count >= idcount)
+        {
+            printf("not registered member\n");
+        }
+    }
+    return;
+}
+
+void MembersEntity::findMemberInfo_PhoneNumber()
+{
+    MemberInfo tempMember2;
+    printf("휴대폰 번호를 입력하세요 : ");
+    scanf("%s", &tempMember2.phoneNumber);
+    static int not_member_count = 0;
+    for(const auto &member : vecMembersList)
+    {
+        if(strcmp(member.phoneNumber, tempMember2.phoneNumber) == 0)
+        {
+            printf("registed memeber\n");
+        }
+        else
+        {
+            not_member_count++;
+        }
+        if(not_member_count >= idcount)
+        {
+            printf("not registered member\n");
+        }
+    }
+    return;
+
+}
+

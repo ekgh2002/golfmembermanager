@@ -28,61 +28,42 @@ void MembersManageService::updateStateEvent(std::string devName)
         case CARD_REGISTER:
             if(devName == "ModeButton")
             {
-                membersManagerState = CARD_SCAN_NAME;
-                printf("changed to CARD_SCAN_NAME\n");
+                membersManagerState = CARD_READER;
+                printf("changed to SCAN_NAME State\n");
             }
         break;
-        case CARD_SCAN_NAME:
-            
+        case SCAN_NAME:
+            if(devName == "ModeButton")
+            {
+                membersManagerState = SCAN_PHONENUMBER;
+                printf("changed to SCAN_PHONENUMBER State\n");
+            }
+            // membersEntity->findMemberInfo_name();
+        break;
+        case SCAN_PHONENUMBER:
             if(devName == "ModeButton")
             {
                 membersManagerState = CARD_READER;
-                printf("changed to CARD_READER\n");
+                printf("changed to CARD_READER State\n");
             }
+            // membersEntity->findMemberInfo_PhoneNumber();
         break;
     }
 }
 
+
 void MembersManageService::checkCardNumber(int *cardNum)
 {
     MemberInfo tempMember;
-    tempMember.id = 100001;
+    
     
     switch (membersManagerState)
     {
-        static int idcount = 100001;
         case CARD_READER:
-            if(membersEntity->findMemberInfo(cardNum))
-            {
-                printf("Registered Member\n");
-                membersEntity->printMemberInfo(cardNum);  
-            }
-            else
-            {
-                printf("Not Registered Member\n");
-            }
+            membersEntity->member_reader(cardNum);
         break;
         case CARD_REGISTER:
-            MemberInfo tempMember;
-            tempMember.id = idcount;
-            printf("이름을 입력하세요 : ");
-            scanf("%s", &tempMember.name);
-            printf("\n주소를 입력하세요 : ");
-            scanf("%s", &tempMember.address);
-            printf("\n번호를 입력하세요 : ");
-            scanf("%s", &tempMember.phoneNumber);
-            // strcpy(tempMember.name, "LEESoonShin");
-            // strcpy(tempMember.address, "101dong 123ho");
-            // strcpy(tempMember.phoneNumber, "010-1234-5678");
-            memcpy(tempMember.cardNum, cardNum, sizeof(tempMember.cardNum));
-            membersEntity->addMemberInfo(tempMember);
-            printf("member registered\n");
-            idcount++;
+            membersEntity->member_register(cardNum); 
         break;
-
-        case CARD_SCAN_NAME:
-            membersEntity->findMemberInfo();
-        break;
-
     }
 }

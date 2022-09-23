@@ -3,11 +3,16 @@
 #include "Monitor.h"
 #include "DeviceData.h"
 #include "MembersManageService.h"
+#include "MembersEntity.h"
+#include <stdio.h>
+#include <cstring>
+#include <iostream>
 
 class Controller
 {
 private:
     MembersManageService *membersManageService;
+    MembersEntity *membersEntity;
 
 public:
     Controller();
