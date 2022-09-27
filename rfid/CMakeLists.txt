@@ -6,6 +6,7 @@ add_executable(${PROJECT_NAME}
     ./src/main.cpp
     ./src/GolfMembershipManager.cpp
     ./src/app/Listener/Listener.cpp
+    ./src/app/View/View.cpp
     ./src/app/Service/MembersManageService.cpp
     ./src/app/Controller/Controller.cpp
     ./src/app/Entity/MembersEntity.cpp
@@ -15,12 +16,18 @@ add_executable(${PROJECT_NAME}
     ./src/hw/Monitor/Monitor.cpp
     ./src/hw/Button/Button.cpp
     ./src/hw/Button/ManageButton.cpp
+    ./src/hw/tcpServer/tcpServer.cpp
+    ./src/hw/tcpServer/ComDev.cpp
+    ./src/hw/I2C/I2C.cpp
+    ./src/hw/LCD/LCD.cpp
+    ./src/hw/Led/Led.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
     ./src/app/Listener
     ./src/app/Service
     ./src/app/Controller
+    ./src/app/View
     ./src/app/Model
     ./src/app/Entity
     ./src/
@@ -28,6 +35,10 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     ./src/hw/spi
     ./src/hw/Monitor
     ./src/hw/Button
+    ./src/hw/tcpServer
+    ./src/hw/LCD
+    ./src/hw/I2C
+    ./src/hw/Led
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC

@@ -5,7 +5,7 @@
 MembersEntity::MembersEntity()
 { 
     loadMembersInfo();
-    idcount = 100001;
+    int idcount = 100001;
 }
 
 MembersEntity::~MembersEntity()
@@ -83,9 +83,6 @@ void MembersEntity::printMemberInfo(int *cardNum)
 }
 
 
-
-
-
 bool MembersEntity::findMemberInfo(std::string name)  // 찾기기능
 {
     for(const auto &member : vecMembersList)
@@ -104,7 +101,7 @@ bool MembersEntity::findMemberInfo(int *cardNum)
     {
         if(memcmp (member.cardNum, cardNum, sizeof(member.cardNum)) == 0)  //  같으면 0, 다르면 0이 아닌값(참)이 출력
         {
-            // printMemberInfo(member.id);
+            printMemberInfo(member.id);
             return true;
         }
     }
@@ -185,52 +182,104 @@ void MembersEntity::member_reader(int*cardNum)
     }  
 }
 
-void MembersEntity::findMemberInfo_name()
+// void MembersEntity::findMemberInfo_PhoneNumber()
+// {
+//     MemberInfo tempMember3;
+//     printf("휴대폰 번호를 입력하세요 : ");
+//     scanf("%s", &tempMember3.phoneNumber);
+//     static int not_member_count = 0;
+//     for(const auto &member : vecMembersList)
+//     {
+//         if(strcmp(member.phoneNumber, tempMember3.phoneNumber) == 0)
+//         {
+//             printf("registed memeber\n");
+//         }
+//         else
+//         {
+//             not_member_count++;
+//         }
+//         if(not_member_count >= idcount)
+//         {
+//             printf("not registered member\n");
+//         }
+//     }
+// }
+
+void MembersEntity::searchMemberInfo(int *cardNum)
 {
-    MemberInfo tempMember2;
-    printf("이름을 입력하세요 : ");
-    scanf("%s", &tempMember2.name);
-    static int not_member_count = 0;
     for(const auto &member : vecMembersList)
     {
-        if(strcmp(member.name, tempMember2.name) == 0)
+        if(memcmp(member.cardNum, cardNum, sizeof(member.cardNum)) == 0)
         {
-            printf("registed memeber\n");
-        }
-        else
-        {
-            not_member_count++;
-        }
-        if(not_member_count >= idcount)
-        {
-            printf("not registered member\n");
+            printf("%s", member.name);
         }
     }
-    return;
 }
 
-void MembersEntity::findMemberInfo_PhoneNumber()
+int MembersEntity::searchMemberID(int *cardNum)
 {
-    MemberInfo tempMember2;
-    printf("휴대폰 번호를 입력하세요 : ");
-    scanf("%s", &tempMember2.phoneNumber);
-    static int not_member_count = 0;
     for(const auto &member : vecMembersList)
     {
-        if(strcmp(member.phoneNumber, tempMember2.phoneNumber) == 0)
+        if(memcmp(member.cardNum, cardNum, sizeof(member.cardNum)) == 0)
         {
-            printf("registed memeber\n");
-        }
-        else
-        {
-            not_member_count++;
-        }
-        if(not_member_count >= idcount)
-        {
-            printf("not registered member\n");
+            return member.id;
         }
     }
-    return;
+}
 
+void MembersEntity::modifyMemberInfo(int *cardNum)
+{
+    MemberInfo tempMember;
+    tempMember.id = searchMemberID(cardNum);
+
+    std::vector<MemberInfo>::iterator itrMember;    
+    itrMember = vecMembersList.begin();             
+    for(itrMember; itrMember != vecMembersList.end() ; itrMember++)
+    {
+        if(memcmp(itrMember->cardNum, cardNum, sizeof(itrMember->cardNum)) == 0)
+        {
+            vecMembersList.erase(itrMember);
+            
+            printf("Name : ");
+            scanf("%s", &tempMember.name);
+            printf("address : ");
+            scanf("%s", &tempMember.address);
+            printf("PhoneNumber : ");
+            scanf("%s", &tempMember.phoneNumber);
+            memcpy(tempMember.cardNum, cardNum, sizeof(tempMember.cardNum));
+            
+            vecMembersList.insert(itrMember, tempMember);
+            printf("%s's information is updated\n", tempMember.name);
+        }
+    }
+    
+}
+
+void MembersEntity::removeMemberInfo(int *cardNum)
+{
+    if(findMemberInfo(cardNum) == 0)
+    {
+        printf("Not registered member\n");
+    }    
+    searchMemberInfo(cardNum);
+    
+    if(delMemberInfo(cardNum) == 1)
+    {
+        printf("  removed\n");
+    }    
+}
+
+void MembersEntity::findMemberInfo_name(int *cardNum)
+{
+    MemberInfo tempMember;
+    printf("\n이름을 입력하세요 : ");
+    scanf("%s", &tempMember.name);
+    for(const auto &member : vecMembersList)
+    {
+        if(strcmp(member.name, tempMember.name) == 0)
+        {
+            printMemberInfo(cardNum);
+        }
+    }
 }
 

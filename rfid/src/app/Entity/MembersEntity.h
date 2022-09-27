@@ -13,6 +13,7 @@ private:
     std::vector<MemberInfo> vecMembersList;
     MemberInfo memberInfo;
     FILE *fpDBData;
+    int idcount;
     
     
     
@@ -36,9 +37,12 @@ public:
     void memoryToDB();
     void member_reader(int*cardNum);
     void member_register(int *cardNum);
-    void findMemberInfo_name();
-    void findMemberInfo_PhoneNumber();
-    int idcount;
+    void searchMemberInfo(int *cardNum);
+    int searchMemberID(int *cardNum);
+    void modifyMemberInfo(int *cardNum);
+    void removeMemberInfo(int *cardNum);
+    void findMemberInfo_name(int *cardNum);
+    
 
 
 

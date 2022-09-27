@@ -15,7 +15,7 @@ private:
     MembersEntity *membersEntity;
 
 public:
-    Controller();
+    Controller(MembersManageService *membersManageService);
     virtual ~Controller();
     void updateEvent(DeviceData data);
 

@@ -1,8 +1,8 @@
 #include "Controller.h"
 #include <iostream>
-Controller::Controller()
+Controller::Controller(MembersManageService *membersManageService)
 {
-    membersManageService = new MembersManageService();
+    this->membersManageService = membersManageService;
     membersEntity = new MembersEntity();
 }
 
@@ -24,6 +24,9 @@ void Controller::updateEvent(DeviceData data)
     if (data.devName == "ModeButton")
     {
         membersManageService->updateStateEvent(data.devName);
-
+    }
+    if (data.devName == "ModeButton2")
+    {
+        membersManageService->updateStateEvent(data.devName);
     }
 }
